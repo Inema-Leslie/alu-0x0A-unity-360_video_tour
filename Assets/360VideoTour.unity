@@ -431,8 +431,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254844328}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1932999397}
@@ -1793,7 +1793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d933c40d4128214d88c4cd276d20ac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hotspot
-  hotspotIcon: {fileID: 0}
+  hotspotIcon: {fileID: 1932999400}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   hoverColor: {r: 0.2, g: 0.8, b: 1, a: 1}
   clickColor: {r: 0, g: 1, b: 0, a: 1}

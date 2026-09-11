@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -8,12 +7,12 @@ public class TourManager : MonoBehaviour
     public GameObject livingRoomSphere;
     public GameObject cantinaSphere;
 
-    private VideoPlayer livingRoomVP;
-    private VideoPlayer cantinaVP;
-
     [Header("UI Canvases")]
     public GameObject livingRoomUI;
     public GameObject cantinaUI;
+
+    private VideoPlayer livingRoomVP;
+    private VideoPlayer cantinaVP;
 
     void Awake()
     {
@@ -23,40 +22,32 @@ public class TourManager : MonoBehaviour
 
     void Start()
     {
-        
         ShowLivingRoom();
     }
 
     public void ShowLivingRoom()
     {
-        SwitchEnvironment(livingRoomSphere, livingRoomVP, cantinaSphere, cantinaVP);
+        
+        if (livingRoomSphere != null) livingRoomSphere.SetActive(true);
+        if (livingRoomUI != null) livingRoomUI.SetActive(true);
+        if (livingRoomVP != null) livingRoomVP.Play();
+
+        
+        if (cantinaSphere != null) cantinaSphere.SetActive(false);
+        if (cantinaUI != null) cantinaUI.SetActive(false);
+        if (cantinaVP != null) cantinaVP.Stop();
     }
 
     public void ShowCantina()
-{
-    
-    if (livingRoomSphere != null) livingRoomSphere.SetActive(false);
-    if (livingRoomUI != null) livingRoomUI.SetActive(false);
-    if (livingRoomVP != null) livingRoomVP.Stop();
-
-    
-    if (cantinaSphere != null) cantinaSphere.SetActive(true);
-    if (cantinaUI != null) cantinaUI.SetActive(true);
-    if (cantinaVP != null) cantinaVP.Play();
-}
-
-    private void SwitchEnvironment(GameObject activateObj, VideoPlayer activateVP, GameObject deactivateObj, VideoPlayer deactivateVP)
     {
-        if (deactivateObj)
-        {
-            if (deactivateVP) deactivateVP.Stop();
-            deactivateObj.SetActive(false);
-        }
+        
+        if (livingRoomSphere != null) livingRoomSphere.SetActive(false);
+        if (livingRoomUI != null) livingRoomUI.SetActive(false);
+        if (livingRoomVP != null) livingRoomVP.Stop();
 
-        if (activateObj)
-        {
-            activateObj.SetActive(true);
-            if (activateVP) activateVP.Play();
-        }
+        
+        if (cantinaSphere != null) cantinaSphere.SetActive(true);
+        if (cantinaUI != null) cantinaUI.SetActive(true);
+        if (cantinaVP != null) cantinaVP.Play();
     }
 }

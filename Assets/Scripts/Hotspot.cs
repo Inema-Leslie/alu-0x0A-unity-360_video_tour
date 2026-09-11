@@ -56,12 +56,10 @@ public class Hotspot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
 
     private void TriggerHotspot()
     {
-        if (hotspotIcon) hotspotIcon.color = clickColor;
         isGazing = false;
-        onTrigger?.Invoke();
         ResetHotspot();
+        onTrigger?.Invoke();
     }
-
     private void ResetHotspot()
     {
         isGazing = false;
