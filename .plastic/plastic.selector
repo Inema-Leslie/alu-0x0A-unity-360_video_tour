@@ -1,0 +1,4 @@
+repository "unity-360_video_tour/unity-360_video_tour@11270669975684@cloud"
+  path "/"
+    br "/main"
+    co "/main"
