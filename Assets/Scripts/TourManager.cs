@@ -3,21 +3,25 @@ using UnityEngine.Video;
 
 public class TourManager : MonoBehaviour
 {
-    [Header("Spheres")]
-    public GameObject livingRoomSphere;
-    public GameObject cantinaSphere;
+    [System.Serializable]
+    public struct RoomNode
+    {
+        public string roomName;
+        public GameObject sphereObject;
+        public GameObject uiCanvas;
+    }
 
-    [Header("UI Canvases")]
-    public GameObject livingRoomUI;
-    public GameObject cantinaUI;
+    [Header("All Tour Rooms")]
+    public RoomNode livingRoom;
+    public RoomNode cantina;
+    public RoomNode cube;
+    public RoomNode mezzanine;
 
-    private VideoPlayer livingRoomVP;
-    private VideoPlayer cantinaVP;
+    private RoomNode[] allRooms;
 
     void Awake()
     {
-        if (livingRoomSphere) livingRoomVP = livingRoomSphere.GetComponent<VideoPlayer>();
-        if (cantinaSphere) cantinaVP = cantinaSphere.GetComponent<VideoPlayer>();
+        allRooms = new RoomNode[] { livingRoom, cantina, cube, mezzanine };
     }
 
     void Start()
@@ -25,29 +29,49 @@ public class TourManager : MonoBehaviour
         ShowLivingRoom();
     }
 
-    public void ShowLivingRoom()
+    public void ShowLivingRoom()  => SwitchToRoom(livingRoom);
+    public void ShowCantina()     => SwitchToRoom(cantina);
+    public void ShowCube()        => SwitchToRoom(cube);
+    public void ShowMezzanine()   => SwitchToRoom(mezzanine);
+
+    private void SwitchToRoom(RoomNode targetRoom)
     {
         
-        if (livingRoomSphere != null) livingRoomSphere.SetActive(true);
-        if (livingRoomUI != null) livingRoomUI.SetActive(true);
-        if (livingRoomVP != null) livingRoomVP.Play();
+        if (allRooms == null || allRooms.Length == 0)
+        {
+            allRooms = new RoomNode[] { livingRoom, cantina, cube, mezzanine };
+        }
 
-        
-        if (cantinaSphere != null) cantinaSphere.SetActive(false);
-        if (cantinaUI != null) cantinaUI.SetActive(false);
-        if (cantinaVP != null) cantinaVP.Stop();
-    }
+        foreach (var room in allRooms)
+        {
+            bool isTarget = (room.sphereObject == targetRoom.sphereObject);
 
-    public void ShowCantina()
-    {
-        
-        if (livingRoomSphere != null) livingRoomSphere.SetActive(false);
-        if (livingRoomUI != null) livingRoomUI.SetActive(false);
-        if (livingRoomVP != null) livingRoomVP.Stop();
+            
+            if (room.sphereObject != null)
+            {
+                var vp = room.sphereObject.GetComponent<VideoPlayer>();
 
-        
-        if (cantinaSphere != null) cantinaSphere.SetActive(true);
-        if (cantinaUI != null) cantinaUI.SetActive(true);
-        if (cantinaVP != null) cantinaVP.Play();
+                if (isTarget)
+                {
+                    room.sphereObject.SetActive(true);
+                    if (vp != null) vp.Play();
+                }
+                else
+                {
+                    
+                    if (vp != null && vp.isPlaying) 
+                    {
+                        vp.Pause();
+                    }
+                    room.sphereObject.SetActive(false);
+                }
+            }
+
+            
+            if (room.uiCanvas != null)
+            {
+                room.uiCanvas.SetActive(isTarget);
+            }
+        }
     }
 }
