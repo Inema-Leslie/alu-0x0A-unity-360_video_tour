@@ -11,11 +11,14 @@ public class TourManager : MonoBehaviour
         public GameObject uiCanvas;
     }
 
-    [Header("All Tour Rooms")]
+    [Header("Room Nodes")]
     public RoomNode livingRoom;
     public RoomNode cantina;
     public RoomNode cube;
     public RoomNode mezzanine;
+
+    [Header("All Floating Info Canvases (Auto-Dismissed on Room Change)")]
+    public GameObject[] allInfoCanvases;
 
     private RoomNode[] allRooms;
 
@@ -42,11 +45,23 @@ public class TourManager : MonoBehaviour
             allRooms = new RoomNode[] { livingRoom, cantina, cube, mezzanine };
         }
 
+        
+        if (allInfoCanvases != null)
+        {
+            foreach (var infoCanvas in allInfoCanvases)
+            {
+                if (infoCanvas != null)
+                {
+                    infoCanvas.SetActive(false);
+                }
+            }
+        }
+
+        
         foreach (var room in allRooms)
         {
             bool isTarget = (room.sphereObject == targetRoom.sphereObject);
 
-            
             if (room.sphereObject != null)
             {
                 var vp = room.sphereObject.GetComponent<VideoPlayer>();
@@ -54,12 +69,15 @@ public class TourManager : MonoBehaviour
                 if (isTarget)
                 {
                     room.sphereObject.SetActive(true);
-                    if (vp != null) vp.Play();
+                    if (vp != null)
+                    {
+                        vp.Play();
+                    }
                 }
                 else
                 {
-                    
-                    if (vp != null && vp.isPlaying) 
+                   
+                    if (vp != null && vp.isPlaying)
                     {
                         vp.Pause();
                     }
@@ -67,7 +85,6 @@ public class TourManager : MonoBehaviour
                 }
             }
 
-            
             if (room.uiCanvas != null)
             {
                 room.uiCanvas.SetActive(isTarget);
