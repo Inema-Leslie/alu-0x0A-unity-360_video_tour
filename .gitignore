@@ -1,8 +1,42 @@
+# Unity generated folders & caches
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
 /[Bb]uild/
 /[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
 /[Mm]emoryCaptures/
-/Logs/
-/UserSettings/
+
+# Plastic SCM / Unity Version Control
+.plastic/
+*.plastic/
+
+# Visual Studio / VS Code temp files
+.vs/
+.vscode/
+ExportedObj/
+.consulo/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.opendb
+*.VC.db
+
+# OS generated
+.DS_Store
+Thumbs.db*.apk 
+.utmp/ 
+*BackUpThisFolder* 
+*BurstDebugInformation* 
+*.apk 
+build.log 
+Assets/_Recovery/ 
